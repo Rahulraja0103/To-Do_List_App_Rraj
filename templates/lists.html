@@ -1,0 +1,59 @@
+<!-- RahulRaj Vardhanapu --8813996 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo Lists</title>
+    <!-- InBuild CSS -->
+    <link rel="stylesheet" href="/static/css/main.css">
+    <nav>
+        <div class="container" style="margin-top: 40px">
+            <!-- Navigation Panel -->
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                        <li><a href="/login">Log-Out</a></li>
+                    </ul>
+        </div>
+    </nav>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 40px;" class="ui container">
+        <h1 class="ui center aligned header" style="margin-left: 100px;">To-Do Lists</h1>
+<!-- Creating a New List Form -->
+        <form class="ui form" action="/addList" method="post">
+            <div class="field">
+                <label style="font-size: medium;">List Name</label>
+                <input type="text" name="title" placeholder="Enter a List To-Do..."><br>
+            </div>
+            <button class="addButton" type="submit">Add New</button>
+        </form>
+
+        <hr>
+<!-- Display all the Created Lists -->
+        {% for todo in todo_list %}
+        <div class="ui segment">
+            <p class="ui big header">{{todo.id }} | {{ todo.title }}</p>
+<!-- If the Status of the List is completed then it will Show in green and says completed -->
+<!-- Status is not completed then it will show in Grey -->
+            {% if todo.complete == False %}
+            <span class="ui gray label">In Progress</span>
+            {% else %}
+            <span class="completeButton">Completed</span>
+            {% endif %}
+<!-- Buttons to Update Status and Delete List -->
+            <a class="updateButton" href="/updateStatus/{{ todo.id }}">Update Status</a>
+            <a class="deleteButton" href="/deleteList/{{ todo.id }}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
